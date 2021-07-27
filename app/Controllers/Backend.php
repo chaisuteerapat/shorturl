@@ -114,4 +114,10 @@ class Backend extends BaseController
 		/* Return Data */
 		return ['file'    => $dir . $save_name];
 	}
+
+	public function logout()
+	{
+		$this->session->destroy();
+		return redirect()->to('/login');
+	}
 }

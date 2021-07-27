@@ -20,7 +20,7 @@ $(function() {
                 if (rs.status == 'N') {
 
                 } else {
-                    window.location = $('#base_url').val() + '/';
+                    window.location = $('#base_url').val() + '/backend';
                 }
             }
         });
