@@ -11,7 +11,7 @@ $(function() {
     $.fn.ajaxsaveurl = function() {
         $.ajax({
             type: "POST",
-            url: $('#base_url').val() + '/home/savedataurl',
+            url: $('#base_url').val() + '/backend/savedataurl',
             data: {
                 url: $('#url').val()
             },
