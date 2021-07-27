@@ -20,7 +20,6 @@ class Q extends BaseController
 		if (!empty($url) && !empty($url[1])) {
 			$url = htmlentities($url[1]);
 			$data['rs'] = $this->urlmodel->checkisshorturl($url);
-
 			if (empty(strpos($data['rs']->short_url_full, 'http'))) {
 				$data['rs']->short_url_full = 'http://' . $data['rs']->short_url_full;
 			}

@@ -40,7 +40,7 @@ class UrlModel extends Model
   public function checkisshorturl($url)
   {
     $builder = $this->db->table($this->_table);
-    $builder->select('short_url_full');
+    $builder->select('short_url_id,short_url_full');
     $builder->where('short_url_short', $url);
     $query = $builder->get();
     return $query->getRow();
@@ -54,24 +54,28 @@ class UrlModel extends Model
     return $query->getResultArray();
   }
 
-  public function saveUrl($url)
+  public function saveUrl($val)
   {
     $builder = $this->db->table($this->_table);
     $data = array(
-      'short_url_full' => $url,
-      'short_url_short' => $this->setshort($url),
-      'short_url_count' => 0,
+      'short_url_full' => $val['url'],
+      'short_url_short' => $this->setshort($val['url']),
+      'short_url_fileqrcode' => $val['file'],
       'short_url_status' => 'A',
       'short_url_datecreate' => Date('Y-m-d H:i:s'),
     );
     return $builder->insert($data);
   }
 
-  // public function edit($data, $id)
+  // public function updatecount($id, $count)
   // {
+  //   $data = array(
+  //     'short_url_count' => $count,
+  //   );
   //   $builder = $this->db->table($this->_table);
-  //   return $builder->update($data, ['id' => $id]);
+  //   return $builder->update($data, ['short_url_id' => $id]);
   // }
+
   // public function del($id)
   // {
   //   $builder = $this->db->table($this->_table);

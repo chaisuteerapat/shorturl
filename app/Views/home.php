@@ -26,8 +26,9 @@
               Shour Url
             </th>
             <th class="text-center" width="10%">
-              Count
+              QR code
             </th>
+            
             <th class="td-actions" width="10%"> </th>
           </tr>
         </thead>
@@ -46,9 +47,11 @@
                     <?php echo  $datasend['protocol'] . $_SERVER['HTTP_HOST'] . '/q/' . $value['short_url_short']; ?>
                   </a>
                 </td>
+
                 <td class="text-center">
-                  <?php echo  $value['short_url_count']; ?>
+                  <img src="<?php echo $value['short_url_fileqrcode']; ?>" style="max-width: 100px;">
                 </td>
+
                 <td class="td-actions">
                   <!-- <a href="javascript:;" class="btn btn-small btn-success">
                     <i class="btn-icon-only icon-ok"> </i>
