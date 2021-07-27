@@ -35,5 +35,7 @@ $(function() {
         }
     });
 
+    $('#tablelist').DataTable();
+
 
 });

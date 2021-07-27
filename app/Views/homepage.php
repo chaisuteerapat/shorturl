@@ -31,7 +31,7 @@
   <div class="modal-body">
 
     <div class="text-center controls">
-      <input type="text" class="col-md-12" id="successurl" name="successurl" style="width: 80%;" >
+      <input type="text" class="col-md-12" id="successurl" name="successurl" style="width: 80%;">
       <button type="button" class="btn btn-info mb-9px" id="copy">
         <i class="fa fa-files-o" aria-hidden="true"></i>
       </button>
@@ -44,8 +44,5 @@
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary" id="saveurl">
-      Save
-    </button>
   </div>
 </div>

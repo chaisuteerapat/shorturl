@@ -6,72 +6,64 @@
 </div>
 
 <div class="span12">
-  <div class="widget widget-table action-table">
-    <div class="widget-header"> <i class="icon-th-list"></i>
+  <!-- <div class="widget widget-table action-table"> -->
+  <!-- <div class="widget-header"> <i class="icon-th-list"></i>
       <h3>
         List Url
       </h3>
-    </div>
-    <div class="widget-content">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th class="text-center" width="5%">
-              #
-            </th>
-            <th class="text-center">
-              Full Url
-            </th>
-            <th class="text-center">
-              Shour Url
-            </th>
-            <th class="text-center" width="10%">
-              QR code
-            </th>
-            
-            <th class="td-actions" width="10%"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (!empty($datasend['list'])) { ?>
-            <?php foreach ($datasend['list'] as $key => $value) { ?>
-              <tr>
-                <td class="text-center">
-                  <?php echo ($key + 1); ?>
-                </td>
-                <td>
-                  <?php echo $value['short_url_full']; ?>
-                </td>
-                <td>
-                  <a href="<?php echo $datasend['protocol'] . $_SERVER['HTTP_HOST'] . '/q/' . $value['short_url_short']; ?>" target="_blank">
-                    <?php echo  $datasend['protocol'] . $_SERVER['HTTP_HOST'] . '/q/' . $value['short_url_short']; ?>
-                  </a>
-                </td>
+    </div> -->
+  <div class="widget-content">
+    <table class="table table-striped table-bordered" id="tablelist">
+      <thead>
+        <tr>
+          <th class="text-center" width="5%">
+            #
+          </th>
+          <th class="text-center">
+            Full Url
+          </th>
+          <th class="text-center">
+            Shour Url
+          </th>
+          <th class="text-center" width="10%">
+            QR code
+          </th>
 
-                <td class="text-center">
-                  <img src="<?php echo $value['short_url_fileqrcode']; ?>" style="max-width: 100px;">
-                </td>
-
-                <td class="td-actions">
-                  <!-- <a href="javascript:;" class="btn btn-small btn-success">
-                    <i class="btn-icon-only icon-ok"> </i>
-                  </a> -->
-                  <a href="javascript:;" class="btn btn-danger btn-small">
-                    <i class="btn-icon-only icon-remove"> </i>
-                  </a>
-                </td>
-              </tr>
-            <?php } ?>
-          <?php } else { ?>
+        </tr>
+      </thead>
+      <tbody>
+        <?php if (!empty($datasend['list'])) { ?>
+          <?php foreach ($datasend['list'] as $key => $value) { ?>
             <tr>
-              <td colspan="5" class="text-center">
-                No Data
+              <td class="text-center">
+                <?php echo ($key + 1); ?>
               </td>
+              <td>
+                <?php echo $value['short_url_full']; ?>
+              </td>
+              <td>
+                <a href="<?php echo $datasend['protocol'] . $_SERVER['HTTP_HOST'] . '/q/' . $value['short_url_short']; ?>" target="_blank">
+                  <?php echo  $datasend['protocol'] . $_SERVER['HTTP_HOST'] . '/q/' . $value['short_url_short']; ?>
+                </a>
+              </td>
+
+              <td class="text-center">
+                <img src="<?php echo $value['short_url_fileqrcode']; ?>" style="max-width: 100px;">
+              </td>
+
+
             </tr>
           <?php } ?>
-        </tbody>
-      </table>
-    </div>
+        <?php } else { ?>
+          <tr>
+            <td colspan="5" class="text-center">
+              No Data
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+    <!-- </div> -->
   </div>
 </div>
 
