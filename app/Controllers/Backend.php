@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\UrlModel;
 use App\Libraries\Ciqrcode;
 
 use function bin2hex;
@@ -14,28 +13,42 @@ class Backend extends BaseController
 
 	protected $urlmodel;
 	protected $ciqrcode;
+	protected $session;
 	public function __construct()
 	{
+		$this->session = session();
 		$this->urlmodel = model('UrlModel');
 	}
 
 	public function settemplate($req)
 	{
-		$data['page'] = $req['page'];
-		$data['datasend'] = $req['datasend'];
-		echo view('f_template', $data);
+		if (empty($this->session->get('member_id'))) {
+			echo view('login');
+		} else {
+			$data['adminname'] = $this->session->get('member_name');
+			$data['adminlname'] = $this->session->get('member_lname');
+			$data['page'] = $req['page'];
+			$data['datasend'] = $req['datasend'];
+			echo view('f_template', $data);
+		}
+	}
+
+
+	public function setprotocol()
+	{
+		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+			$url = "https://";
+		} else {
+			$url = "http://";
+		}
+		return $url;
 	}
 
 	public function index()
 	{
 		$data['page'] = 'list';
 		$data['datasend']['list'] = $this->urlmodel->getallUrl();
-		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-			$url = "https://";
-		} else {
-			$url = "http://";
-		}
-		$data['datasend']['protocol'] = $url;
+		$data['datasend']['protocol'] = $this->setprotocol();
 		$this->settemplate($data);
 	}
 
@@ -47,13 +60,18 @@ class Backend extends BaseController
 			$rs = $this->urlmodel->checkurl($data['url']);
 			if (!empty($rs)) {
 				$datareturn['status'] = 'N';
+				$datareturn['file'] = $rs->short_url_fileqrcode;
+				$datareturn['short'] = $this->setprotocol() . $_SERVER['HTTP_HOST'] . '/q/' . $rs->short_url_short;
 			} else {
-				if (empty(strpos($data['url'], 'http'))) {
+				$pos = strpos($data['url'], 'http');
+				$pos = strval($pos);
+				$setqrcode = $data['url'];
+				if (strpos($data['url'], 'http') === false) {
 					$setqrcode = 'http://' . $data['url'];
 				}
-				$rsfile   = $this->generate_qrcode($setqrcode);
-				$data['file'] = $rsfile;
-				$this->urlmodel->saveUrl($data);
+				$rsfile = $this->generate_qrcode($setqrcode);
+				$datareturn['file'] = $data['file'] = $rsfile['file'];
+				$datareturn['short'] = $this->setprotocol() . $_SERVER['HTTP_HOST'] . '/q/' . $this->urlmodel->saveUrl($data);
 			}
 			echo json_encode($datareturn);
 		}

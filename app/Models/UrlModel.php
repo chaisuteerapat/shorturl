@@ -31,7 +31,7 @@ class UrlModel extends Model
   public function checkurl($url)
   {
     $builder = $this->db->table($this->_table);
-    $builder->select('short_url_id');
+    $builder->select('short_url_id,short_url_full,short_url_short,short_url_fileqrcode');
     $builder->where('short_url_full', $url);
     $query = $builder->get();
     return $query->getRow();
@@ -57,14 +57,16 @@ class UrlModel extends Model
   public function saveUrl($val)
   {
     $builder = $this->db->table($this->_table);
+    $short = $this->setshort($val['url']);
     $data = array(
       'short_url_full' => $val['url'],
-      'short_url_short' => $this->setshort($val['url']),
+      'short_url_short' => $short,
       'short_url_fileqrcode' => $val['file'],
       'short_url_status' => 'A',
       'short_url_datecreate' => Date('Y-m-d H:i:s'),
     );
-    return $builder->insert($data);
+    $builder->insert($data);
+    return $short;
   }
 
   // public function updatecount($id, $count)

@@ -309,3 +309,7 @@ h6.bigstats {
 .border-red {
     border: 1px solid red!important;
 }
+
+.mb-9px {
+    margin-bottom: 9px;
+}

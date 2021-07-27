@@ -18,12 +18,12 @@ class Home extends BaseController
 	{
 		$data['page'] = $req['page'];
 		$data['datasend'] = $req['datasend'];
-		echo view('f_template', $data);
+		echo view('f_other', $data);
 	}
 
 	public function index()
 	{
-		$data['page'] = 'home';
+		$data['page'] = 'homepage';
 		$data['datasend']['list'] = $this->urlmodel->getallUrl();
 		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
 			$url = "https://";
