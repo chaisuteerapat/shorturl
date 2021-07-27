@@ -9,7 +9,7 @@
 # git clone https://github.com/chaisuteerapat/shorturl.git
 # cd shorturl
 # php spark serve
-
+# Config DB
 
 # Website Url : http://shorturl.wind-site.com/
 
